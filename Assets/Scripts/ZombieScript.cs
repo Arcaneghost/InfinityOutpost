@@ -34,7 +34,7 @@ public class ZombieScript : MonoBehaviour {
 
 	bool timeToChase = false;
 	bool timeToAttack = false;
-	float  attackRepeatTime = 1f;
+	float  attackRepeatTime = 3f;
 	public float  ZombieLife = 3f;
 	private float  functionState = 0f;
 	private bool chasing = false;
@@ -73,7 +73,9 @@ public class ZombieScript : MonoBehaviour {
 		 
 
 			//myTransform.position += myTransform.forward * chaseSpeed * Time.deltaTime;
-			myTransform.rotation = Quaternion.Slerp (myTransform.rotation, Quaternion.LookRotation (target.position - myTransform.position), rotationSpeed * Time.deltaTime * rotationDamping);
+		Vector3 dir = target.position - myTransform.position;
+		dir.y = 0f;
+		myTransform.rotation = Quaternion.Slerp (myTransform.rotation, Quaternion.LookRotation (dir), rotationSpeed * Time.deltaTime * rotationDamping);
 			
 
 			if (distance <= attackRepeatTime) {
@@ -95,7 +97,11 @@ public class ZombieScript : MonoBehaviour {
 
 
 			if (distance > attackThreshold) {
+				anim.SetBool ("timeToChase", true);
+				timeToChase = true;
 				chaseSpeed = 5;
+				anim.SetBool ("timeToAttack", false);
+				timeToAttack = false;
 			}
 
 
@@ -108,8 +114,8 @@ public class ZombieScript : MonoBehaviour {
 	}
 
 	void fixedUpdate (){
-		self.AddForce (0, 5, 0);
-		self.AddForce(target.position - myTransform.position);
+		Vector3 dir = target.position - myTransform.position;
+		self.AddForce(dir.x, 0, dir.z);
 
 	}
 //	void OnTriggerEnter(Collider other) {

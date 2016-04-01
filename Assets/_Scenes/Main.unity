@@ -240,6 +240,10 @@ Prefab:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5407484, guid: 7bbb4356316a8964fa3d006a5453dc17, type: 2}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7bbb4356316a8964fa3d006a5453dc17, type: 2}
   m_IsPrefabParent: 0
